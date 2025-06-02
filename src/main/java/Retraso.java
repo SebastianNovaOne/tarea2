@@ -7,4 +7,16 @@ public class Retraso {
         this.hora = hora;
     }
 
+    public Instant getHora() {
+        return hora;
+    }
+
+    public void setHora(Instant hora) {
+        this.hora = hora;
+    }
+
+    public String toString() {
+        return "Retraso{" + "hora=" + hora + "}";
+    }
+
 }
