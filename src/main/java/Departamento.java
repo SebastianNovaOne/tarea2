@@ -8,4 +8,12 @@ public class Departamento {
     public Departamento(String nombre) {
         this.nombre = nombre;
     }
+
+    public void agregarEmpleado(Empleado empleado) {
+        empleados.add(empleado);
+    }
+
+    public int obtenerCantidadEmpleados() {
+        return empleados.size();
+    }
 }
