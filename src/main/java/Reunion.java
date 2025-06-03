@@ -61,4 +61,19 @@ public abstract class Reunion {
         }
         return retrasados;
     }
+
+    public int obtenerTotalAsistencia() {
+        int total = 0;
+        for (Invitacion i : listaInvitados) {
+            if (i.getEstado() != EstadoAsistencia.AUSENTE) {
+                total++;
+            }
+        }
+        return total;
+    }
+
+    public float obtenerPorcentajeAsistencia() {
+        if (listaInvitados.isEmpty()) return 0;
+        return 100f * obtenerTotalAsistencia() / listaInvitados.size();
+    }
 }
