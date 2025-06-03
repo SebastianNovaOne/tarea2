@@ -19,4 +19,16 @@ public abstract class Reunion {
         this.organizador = organizador;
         this.tipo = tipo;
     }
+
+    public void iniciar() {
+        horaInicio = Instant.now();
+    }
+
+    public void finalizar() {
+        horaFin = Instant.now();
+    }
+
+    public float calcularTiempoReal() {
+        return Duration.between(horaInicio, horaFin).toMinutes();
+    }
 }
