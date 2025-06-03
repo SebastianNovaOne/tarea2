@@ -31,4 +31,34 @@ public abstract class Reunion {
     public float calcularTiempoReal() {
         return Duration.between(horaInicio, horaFin).toMinutes();
     }
+
+    public List<Invitacion> obtenerAsistencias() {
+        List<Invitacion> presentes = new ArrayList<>();
+        for (Invitacion i : listaInvitados) {
+            if (i.getEstado() == EstadoAsistencia.PRESENTE) {
+                presentes.add(i);
+            }
+        }
+        return presentes;
+    }
+
+    public List<Invitacion> obtenerAusencias() {
+        List<Invitacion> ausentes = new ArrayList<>();
+        for (Invitacion i : listaInvitados) {
+            if (i.getEstado() == EstadoAsistencia.AUSENTE) {
+                ausentes.add(i);
+            }
+        }
+        return ausentes;
+    }
+
+    public List<Invitacion> obtenerRetrasos() {
+        List<Invitacion> retrasados = new ArrayList<>();
+        for (Invitacion i : listaInvitados) {
+            if (i.getEstado() == EstadoAsistencia.RETRASADO) {
+                retrasados.add(i);
+            }
+        }
+        return retrasados;
+    }
 }
