@@ -6,4 +6,12 @@ public class InvitadoExterno implements Invitable {
         this.nombreCompleto = nombreCompleto;
         this.correo = correo;
     }
+
+    public void invitar() {
+        System.out.println("Invitacion enviada a invitado externo: " + nombreCompleto);
+    }
+
+    public String toString() {
+        return nombreCompleto + "(Invitado Externo - " + correo + ")";
+    }
 }
