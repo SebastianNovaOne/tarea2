@@ -76,4 +76,33 @@ public abstract class Reunion {
         if (listaInvitados.isEmpty()) return 0;
         return 100f * obtenerTotalAsistencia() / listaInvitados.size();
     }
+
+    public String generarInforme() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("INFORME DE REUNION\n");
+        sb.append("Fecha: ").append(fecha).append("\n");
+        sb.append("Inicio: ").append(horaInicio).append(" - Fin: ").append(horaFin).append("\n");
+        sb.append("Duracion real (min): ").append(calcularTiempoReal()).append("\n");
+        sb.append("Tipo: ").append(tipo).append("\n");
+
+        if (this instanceof ReunionVirtual) {
+            ReunionVirtual rv = (ReunionVirtual) this;
+            sb.append("Enlace: ").append(rv.getEnlace()).append("\n");
+        } else if (this instanceof ReunionPresencial) {
+            ReunionPresencial rp = (ReunionPresencial) this;
+            sb.append("Sala: ").append(rp.getSala()).append("\n");
+        }
+
+        sb.append("Asistencia:\n");
+        for (Invitacion i : listaInvitados) {
+            sb.append("- ").append(i.toString()).append("\n");
+        }
+
+        sb.append("Notas:\n");
+        for (Nota n : notas) {
+            sb.append("- ").append(n.toString()).append("\n");
+        }
+
+        return sb.toString();
+    }
 }
