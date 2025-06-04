@@ -28,4 +28,13 @@ public class ReunionTest {
         assertNotNull(reunion.getHoraFin());
         assertTrue(reunion.getHoraFin().isAfter(reunion.getHoraInicio()) || reunion.getHoraFin().equals(reunion.getHoraInicio()));
     }
+
+    @Test
+    public void testCalcularTiempoReal() throws InterruptedException {
+        reunion.iniciar();
+        Thread.sleep(100);
+        reunion.finalizar();
+        float duracion = reunion.calcularTiempoReal();
+        assertTrue(duracion >= 0);
+    }
 }
