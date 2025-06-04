@@ -2,6 +2,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.*;
 import java.time.*;
 import java.util.*;
+import java.io.*;
 
 public class ReunionTest {
 
@@ -121,4 +122,45 @@ public class ReunionTest {
 
         assertEquals(50.0, reunion.obtenerPorcentajeAsistencia(), 0.001);
     }
+    @Test
+    public void testGenerarInforme() {
+        reunion.iniciar();
+        reunion.finalizar();
+
+        Invitacion inv1 = new Invitacion(new Empleado("EMPLOYEE777", "Yañez", "Pato", "pato@outlook.com", null), Instant.now());
+        inv1.marcarPresente();
+        reunion.listaInvitados.add(inv1);
+
+        reunion.notas.add(new Nota("Nota importante"));
+
+        String informe = reunion.generarInforme();
+        assertTrue(informe.contains("INFORME DE REUNION"));
+        assertTrue(informe.contains("Fecha:"));
+        assertTrue(informe.contains("Duracion real"));
+        assertTrue(informe.contains("Asistencia:"));
+        assertTrue(informe.contains("Notas:"));
+        assertTrue(informe.contains("Nota importante"));
+        assertTrue(informe.contains("Pato Yañez"));
+    }
+
+    @Test
+    public void testGuardarInformeEnArchivo() {
+        reunion.iniciar();
+        reunion.finalizar();
+
+        Invitacion inv1 = new Invitacion(new Empleado("EMPLOYEE777", "Yañez", "Pato", "pato@outlook.com", null), Instant.now());
+        inv1.marcarPresente();
+        reunion.listaInvitados.add(inv1);
+
+        reunion.notas.add(new Nota("Nota para archivo"));
+
+        String nombreArchivo = "test_informe.txt";
+        reunion.guardarInformeEnArchivo(nombreArchivo);
+
+        File archivo = new File(nombreArchivo);
+        assertTrue(archivo.exists());
+
+        archivo.delete();
+    }
+
 }
