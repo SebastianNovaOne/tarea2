@@ -213,4 +213,59 @@ public abstract class Reunion {
             System.err.println("Error al guardar el informe: " + e.getMessage());
         }
     }
+
+    /**
+     * Devuelve Hora de inicio de la reunion.
+     *
+     * @return Hora de inicio como un Instant.
+     */
+    public Instant getHoraInicio() {
+        return horaInicio;
+    }
+
+    /**
+     * Establece hora de inicio de la reunion.
+     *
+     * @param horaInicio La nueva hora de inicio.
+     */
+    public void setHoraInicio(Instant horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    /**
+     * Devuelve la hora de fin de la reunion.
+     *
+     * @return La hora de fin como un Instant.
+     */
+    public Instant getHoraFin() {
+        return horaFin;
+    }
+
+    /**
+     * Establece hora de fin de la reunion.
+     *
+     * @param horaFin Nueva hora fin.
+     */
+    public void setHoraFin(Instant horaFin) {
+        this.horaFin = horaFin;
+    }
+
+    /**
+     * Devuelve una String de la reunión con sus atributos principales.
+     *
+     * @return String.
+     */
+    public String toString() {
+        return "Reunion{" +
+                "fecha=" + fecha +
+                ", horaPrevista=" + horaPrevista +
+                ", duracionPrevista=" + duracionPrevista +
+                ", horaInicio=" + horaInicio +
+                ", horaFin=" + horaFin +
+                ", organizador=" + organizador +
+                ", tipo=" + tipo +
+                ", listaInvitados=" + listaInvitados +
+                ", notas=" + notas +
+                '}';
+    }
 }
