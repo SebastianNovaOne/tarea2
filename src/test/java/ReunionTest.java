@@ -40,12 +40,12 @@ public class ReunionTest {
 
     @Test
     public void testObtenerAsistencias() {
-        Empleado e1 = new Empleado("1", "Gomez", "Ana", "ana@empresa.com", null);
+        Empleado e1 = new Empleado("EMPLOYEE999", "Gomez", "Ximena", "ximena@gmail.com", null);
         Invitacion inv1 = new Invitacion(e1, Instant.now());
         inv1.marcarPresente();
         reunion.listaInvitados.add(inv1);
 
-        Empleado e2 = new Empleado("2", "Lopez", "Carlos", "carlos@empresa.com", null);
+        Empleado e2 = new Empleado("EMPLOYEE777", "Yañez", "Pato", "pato@outlook.com", null);
         Invitacion inv2 = new Invitacion(e2, Instant.now());
         inv2.setEstado(EstadoAsistencia.AUSENTE);
         reunion.listaInvitados.add(inv2);
@@ -57,12 +57,12 @@ public class ReunionTest {
 
     @Test
     public void testObtenerAusencias() {
-        Empleado e1 = new Empleado("1", "Gomez", "Ana", "ana@empresa.com", null);
+        Empleado e1 = new Empleado("EMPLOYEE999", "Gomez", "Ximena", "ximena@gmail.com", null);
         Invitacion inv1 = new Invitacion(e1, Instant.now());
         inv1.setEstado(EstadoAsistencia.AUSENTE);
         reunion.listaInvitados.add(inv1);
 
-        Empleado e2 = new Empleado("2", "Lopez", "Carlos", "carlos@empresa.com", null);
+        Empleado e2 = new Empleado("EMPLOYEE777", "Yañez", "Pato", "pato@outlook.com", null);
         Invitacion inv2 = new Invitacion(e2, Instant.now());
         inv2.marcarPresente();
         reunion.listaInvitados.add(inv2);
@@ -74,12 +74,12 @@ public class ReunionTest {
 
     @Test
     public void testObtenerRetrasos() {
-        Empleado e1 = new Empleado("1", "Gomez", "Ana", "ana@empresa.com", null);
+        Empleado e1 = new Empleado("EMPLOYEE999", "Gomez", "Ximena", "ximena@gmail.com", null);
         Invitacion inv1 = new Invitacion(e1, Instant.now());
         inv1.marcarRetraso(Instant.now());
         reunion.listaInvitados.add(inv1);
 
-        Empleado e2 = new Empleado("2", "Lopez", "Carlos", "carlos@empresa.com", null);
+        Empleado e2 = new Empleado("EMPLOYEE777", "Yañez", "Pato", "pato@outlook.com", null);
         Invitacion inv2 = new Invitacion(e2, Instant.now());
         inv2.marcarPresente();
         reunion.listaInvitados.add(inv2);
@@ -87,5 +87,38 @@ public class ReunionTest {
         List<Invitacion> retrasados = reunion.obtenerRetrasos();
         assertEquals(1, retrasados.size());
         assertEquals(EstadoAsistencia.RETRASADO, retrasados.get(0).getEstado());
+    }
+
+    @Test
+    public void testObtenerTotalAsistencia() {
+        Invitacion inv1 = new Invitacion(new Empleado("EMPLOYEE999", "Gomez", "Ximena", "ximena@gmail.com", null), Instant.now());
+        inv1.marcarPresente();
+        reunion.listaInvitados.add(inv1);
+
+        Invitacion inv2 = new Invitacion(new Empleado("EMPLOYEE777", "Yañez", "Pato", "pato@outlook.com", null), Instant.now());
+        inv2.marcarRetraso(Instant.now());
+        reunion.listaInvitados.add(inv2);
+
+        Invitacion inv3 = new Invitacion(new Empleado("EMPLOYEE456", "Ruiz", "Laura", "laura@outlook.com", null), Instant.now());
+        inv3.setEstado(EstadoAsistencia.AUSENTE);
+        reunion.listaInvitados.add(inv3);
+
+        assertEquals(2, reunion.obtenerTotalAsistencia());
+    }
+
+    @Test
+    public void testObtenerPorcentajeAsistencia() {
+        reunion.listaInvitados.clear();
+        assertEquals(0, reunion.obtenerPorcentajeAsistencia(), 0.001);
+
+        Invitacion inv1 = new Invitacion(new Empleado("EMPLOYEE999", "Gomez", "Ximena", "ximena@gmail.com", null), Instant.now());
+        inv1.marcarPresente();
+        reunion.listaInvitados.add(inv1);
+
+        Invitacion inv2 = new Invitacion(new Empleado("EMPLOYEE777", "Yañez", "Pato", "pato@outlook.com", null), Instant.now());
+        inv2.setEstado(EstadoAsistencia.AUSENTE);
+        reunion.listaInvitados.add(inv2);
+
+        assertEquals(50.0, reunion.obtenerPorcentajeAsistencia(), 0.001);
     }
 }
